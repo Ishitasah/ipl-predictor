@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+deliveries.csv/
+.streamlit/

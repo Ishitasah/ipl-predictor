@@ -1,0 +1,11 @@
+id,Season,city,date,team1,team2,toss_winner,toss_decision,result,dl_applied,winner,win_by_runs,win_by_wickets,player_of_match,venue,umpire1,umpire2,umpire3
+1,IPL-2017,Hyderabad,05-04-2017,Sunrisers Hyderabad,Royal Challengers Bangalore,Royal Challengers Bangalore,field,normal,0,Sunrisers Hyderabad,35,0,Yuvraj Singh,"Rajiv Gandhi International Stadium, Uppal",AY Dandekar,NJ Llong,
+2,IPL-2017,Pune,06-04-2017,Mumbai Indians,Rising Pune Supergiant,Rising Pune Supergiant,field,normal,0,Rising Pune Supergiant,0,7,SPD Smith,Maharashtra Cricket Association Stadium,A Nand Kishore,S Ravi,
+3,IPL-2017,Mumbai,07-04-2017,Mumbai Indians,Chennai Super Kings,Mumbai Indians,bat,normal,0,Mumbai Indians,28,0,RG Sharma,Wankhede Stadium,A Nand Kishore,S Ravi,
+4,IPL-2017,Bangalore,08-04-2017,Royal Challengers Bangalore,Chennai Super Kings,Chennai Super Kings,field,normal,0,Chennai Super Kings,0,6,MS Dhoni,M Chinnaswamy Stadium,Nitin Menon,CK Nandan,
+5,IPL-2017,Mumbai,09-04-2017,Mumbai Indians,Royal Challengers Bangalore,Mumbai Indians,bat,normal,0,Mumbai Indians,15,0,KH Pandya,Wankhede Stadium,AK Chaudhary,C Shamshuddin,
+6,IPL-2017,Chennai,10-04-2017,Chennai Super Kings,Sunrisers Hyderabad,Sunrisers Hyderabad,field,normal,0,Chennai Super Kings,12,0,SK Raina,MA Chidambaram Stadium,AY Dandekar,NJ Llong,
+7,IPL-2017,Hyderabad,11-04-2017,Sunrisers Hyderabad,Mumbai Indians,Mumbai Indians,field,normal,0,Mumbai Indians,0,4,JJ Bumrah,"Rajiv Gandhi International Stadium, Uppal",S Ravi,Nitin Menon,
+8,IPL-2017,Bangalore,12-04-2017,Royal Challengers Bangalore,Rising Pune Supergiant,Royal Challengers Bangalore,bat,normal,0,Rising Pune Supergiant,0,7,BA Stokes,M Chinnaswamy Stadium,CK Nandan,AK Chaudhary,
+9,IPL-2017,Pune,13-04-2017,Rising Pune Supergiant,Chennai Super Kings,Chennai Super Kings,field,normal,0,Chennai Super Kings,0,5,MS Dhoni,Maharashtra Cricket Association Stadium,C Shamshuddin,A Nand Kishore,
+10,IPL-2017,Mumbai,14-04-2017,Mumbai Indians,Sunrisers Hyderabad,Sunrisers Hyderabad,field,normal,0,Mumbai Indians,4,0,RG Sharma,Wankhede Stadium,NJ Llong,AY Dandekar,
