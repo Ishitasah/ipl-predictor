@@ -1,4 +1,4 @@
-"""Smoke tests for predict.py using the small sample CSVs.
+"""Smoke tests for predict.py (v2).
 
 Run:  python test_predict.py
 """
@@ -22,43 +22,38 @@ def test_sample_deliveries_load():
     print("[ok] sample_deliveries.csv loads (%d rows)" % len(df))
 
 
-def test_train_and_predict_on_sample():
-    df = pd.read_csv("sample_matches.csv").dropna(subset=[predict.TARGET]).copy()
-    df["city"] = df["city"].fillna("Unknown")
-    encoders, target_enc = predict.build_encoders(df)
+def test_build_and_predict():
+    df = predict.load_matches()
+    bundle = predict.build_model(df)
+    assert 0.0 <= bundle["accuracy"] <= 1.0
+    print("[ok] model trains, accuracy = %.1f%%" % (bundle["accuracy"] * 100))
 
-    # Tiny dataset: train on all of it just to exercise the pipeline.
-    x_cols = [c + "_enc" for c in predict.FEATURES]
-    from sklearn.ensemble import RandomForestClassifier
-    model = RandomForestClassifier(n_estimators=20, random_state=42)
-    model.fit(df[x_cols], df[predict.TARGET + "_enc"])
-
-    match = {
-        "team1": "Mumbai Indians",
-        "team2": "Chennai Super Kings",
-        "toss_winner": "Mumbai Indians",
-        "toss_decision": "bat",
-        "venue": "Wankhede Stadium",
-        "city": "Mumbai",
-    }
-    winner = predict.predict_match(model, encoders, target_enc, match)
-    assert winner in set(df[predict.TARGET])
-    print("[ok] predict_match returns a known team: %s" % winner)
+    winner, p1 = predict.predict_match(
+        bundle, "Mumbai Indians", "Chennai Super Kings",
+        "Mumbai Indians", "bat", "Wankhede Stadium",
+    )
+    # The predicted winner must be one of the two teams actually playing.
+    assert winner in {"Mumbai Indians", "Chennai Super Kings"}
+    assert 0.0 <= p1 <= 1.0
+    print("[ok] predict returns a playing team: %s (p=%.2f)" % (winner, p1))
 
 
-def test_unseen_label_is_tolerated():
-    df = pd.read_csv("sample_matches.csv").copy()
-    df["city"] = df["city"].fillna("Unknown")
-    encoders, _ = predict.build_encoders(df)
-    # A team never seen in training should encode to the fallback (0), not crash.
-    val = predict._encode_value(encoders["team1"], "Some New Team")
-    assert val == 0
-    print("[ok] unseen labels fall back without error")
+def test_winner_matches_probability():
+    """If team1's win prob >= 0.5 the winner is team1, else team2 -- always consistent."""
+    df = predict.load_matches()
+    bundle = predict.build_model(df)
+    for t1, t2 in [("Kolkata Knight Riders", "Rajasthan Royals"),
+                   ("Kings XI Punjab", "Delhi Daredevils")]:
+        winner, p1 = predict.predict_match(bundle, t1, t2, t1, "field", "Eden Gardens")
+        expected = t1 if p1 >= 0.5 else t2
+        assert winner == expected
+        assert winner in {t1, t2}
+    print("[ok] winner is always consistent with the probability and is a playing team")
 
 
 if __name__ == "__main__":
     test_sample_matches_load()
     test_sample_deliveries_load()
-    test_train_and_predict_on_sample()
-    test_unseen_label_is_tolerated()
+    test_build_and_predict()
+    test_winner_matches_probability()
     print("\nAll tests passed.")
